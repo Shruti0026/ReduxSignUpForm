@@ -12,6 +12,7 @@ import {useState} from "react";
 import {addUsers} from "../../Features/Users"
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import Home from "../Home";
+import { userSelector } from "../../Features/Users";
 
 
 const paperStyle = { padding: 20, height: '50vh', width: 300, margin: "20px auto" }
@@ -22,7 +23,7 @@ const btnstyle = { margin: '8px 0' }
 
 function AddUser() {
     const dispatch = useDispatch();
-    const userList = useSelector((state)=> state.users.value)
+    const userList = useSelector((state)=> userSelector.selectAll(state))
 
     const [username , setUsername] = useState("");
     const [email , setEmail] = useState("");
@@ -38,7 +39,6 @@ function AddUser() {
             email,
             password,
         }))
-        
         Navigate('/Home')
         console.log(addUsers)
        

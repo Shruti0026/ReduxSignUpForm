@@ -1,18 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { UsersData } from "../DemoData"
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+//import { UsersData } from "../DemoData"
 
+const userAdapter = createEntityAdapter();
+export const userSelector = userAdapter.getSelectors(
+    (state) => state.user
+);
+console.log(userSelector);
 
 export const userSlice = createSlice({
-    name: "users",
-    initialState: { value: UsersData },
+    name: "user",
+    initialState: userAdapter.getInitialState(),
     reducers: {
         addUsers: (state, action) => {
-            state.value.push(action.payload);
+            userAdapter.addOne(state, action.payload);
+            // state.value.push(action.payload);
         },
 
         deleteUser: (state, action) => {
-            state.value = state.value.filter((user) => user.id !== action.payload.id);
+            userAdapter.removeOne(state, action.payload);
+            // state.value = state.value.filter((user) => user.id !== action.payload.id);
         },
+
     },
 });
 

@@ -17,6 +17,7 @@ import { deleteUser } from "../../Features/Users";
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import AddUser from "../Add";
 import { purple } from "@mui/material/colors";
+import { userSelector } from "../../Features/Users";
 
 
 const paperStyle = { float:'center',padding: "20px 20px 20px 20px", height: 'auto', width: 800, backgroundColor: purple[50], margin: "20px auto"}
@@ -47,7 +48,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function Home() {
     const Navigate = useNavigate();
     const dispatch = useDispatch();
-    const userList = useSelector((state)=> state.users.value)
+    const userList = useSelector((state)=> userSelector.selectAll(state));
+    console.log(userList)
 
     const tableRows = userList.map((info, id ) => {
         return ( 
@@ -58,8 +60,8 @@ function Home() {
                 <StyledTableCell align = "center" > { info.email  } </StyledTableCell> 
                 <StyledTableCell align = "center" > { info.password } </StyledTableCell>  
                 <StyledTableCell onClick={()=>{
-                    dispatch(deleteUser({id: info.id}))
-                }}  > 
+                    dispatch(deleteUser(info.id))
+                }} > 
                         <Avatar style = { avatarStyle } >
                         <DeleteForeverIcon/>
                         </Avatar> 

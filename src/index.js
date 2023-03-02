@@ -5,12 +5,39 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {configureStore} from "@reduxjs/toolkit";
 import { Provider } from 'react-redux';
-import usersReducer from './Features/Users'
+import userReducer from './Features/Users'
+
+const preloadedState={
+  user:{
+    ids:[1,2,3],
+    entities:{
+      1:{
+        id: 1,
+        username: "Bret",
+        email: "Leanne@gmail.com",
+        password: "Bret1"
+      },
+      2:{
+        id: 2,
+        username: "Antonette",
+        email: "Ervin@gmail.com",
+        password: "Antonette2"
+      },
+      3:{
+        id: 3,
+        username: "clementine",
+        email: "Clementine@gmail.com",
+        password: "clementine3"
+      }
+    }
+  }
+}
 
 const store = configureStore({
   reducer:{
-    users : usersReducer ,
-  }
+    user : userReducer ,
+  },
+  preloadedState
 })
  
 const root = ReactDOM.createRoot(document.getElementById('root'));
